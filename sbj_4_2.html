@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<input type="text" id="tel">
+<input type="button" value="подобрать" onclick="calc()">
+<script>
+var words = ["real", "reality", "it", "hard", "mom", "your", "dad", "easy", "dark", "light", "ready", "good", "boy", "check"];
+var letters= ["qy", "itl", "abc", "def", "ghj", "kl", "mno", "prs", "utv", "wxz"];
+            // 0     1      2       3      4      5     6       7       8      9
+//phone = "11732466260";
+
+function check(str, i_p = 0, i_w = 0)
+{
+    var j = parseInt(phone[i_p]);
+    for (var i = 0; i < letters[j].length; i++)
+    {
+        if (letters[j][i] == str[i_w])
+            return (1 + (str.length - 1 > i_w ? check(str, i_p + 1, i_w + 1) : 0));
+    }
+    return (0);
+}
+
+function calc()
+{
+    phone = document.getElementById("tel").value;
+    result = "";
+    var delta = 0;
+    var j = 0; // идём по телефоному номеру
+    var k = 0; // идём по массиву слов
+    while (k < words.length && j < phone.length)
+    {
+        delta = check(words[k], j);
+        if (delta >= 3 || delta == words[k].length)
+        {
+            j += delta;
+            result += words[k].slice(0, delta).toUpperCase() + words[k].slice(delta);
+            k = 0;
+        }
+        else
+            k++;
+    }
+    if (j < phone.length)
+        result = "No solution";
+    document.getElementById("rez").innerHTML = result;
+}
+</script>
+<div id="rez"></div>
+</body>
+</html>
