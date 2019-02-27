@@ -8,7 +8,7 @@
 <input type="button" onclick="buster(arr, 0)">
 <script>
 var arr = [1, 2, 3, 4, 5, 6, 7, 8];
-var i = 0;
+var num = 0;
 
 function someshit(a)
 {return (a == arr[7] ? 0 : 1);}
@@ -30,6 +30,7 @@ function reset(arr, i)
 function buster(arr, i)
 {
     if (i == arr.length) return 0;
+    //num++;
     if (i == 7 && someshit(arr[i]) == 1)
         return (1);
     else if (someshit(arr[i]) != 0)
@@ -41,10 +42,11 @@ function buster(arr, i)
         for (var j = i; j < arr.length; j++)
         {
             shifter(arr, i, j);
-            buster(arr, j + 1);
+            buster(arr, i + 1);
             //reset(arr, j);
         }
-        console.log(arr);
+        if (i == 7)
+            console.log(arr);
         reset(arr, i);
         return (0);
     }
